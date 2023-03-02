@@ -73,6 +73,8 @@ public class FrmUbicacion extends javax.swing.JFrame {
        });
     }
     
+    
+    
     private void CargarDepartamentos(String codigoDpt){
        String Datos[][] = new String[listaDepartamentos.size()][100];
     
