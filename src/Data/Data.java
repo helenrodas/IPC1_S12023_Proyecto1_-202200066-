@@ -158,37 +158,52 @@ public class Data {
         Departamentos.add(new CUbicacion("01", "Guatemala"));
         Municipios.add(new CUbicacion("0101","Mixco"));
         
-        Departamentos.add(new CUbicacion("02", "Quiche"));
+        Departamentos.add(new CUbicacion("02", "Sacatepequez"));
         Municipios.add(new CUbicacion("0201","Nebaj"));
         
-  
+        Departamentos.add(new CUbicacion("03", "Quiche"));
+        
     }
+    
     
     //--seccion regiones
     public void InitRegiones(){
-        CUbicacion dptoGuate = new CUbicacion("01", "Guatemala");
-        CRegion regMetropolitana = new CRegion("M", "Metropolitana"); 
-        String codigoDpt=dptoGuate.getCodigo();
         ArrayList<String> listaDeptosMetro = new ArrayList<>();  //regMetropolitana.getDepartamentos();
-        listaDeptosMetro.add(codigoDpt); 
-        Regiones.add(regMetropolitana);
+        listaDeptosMetro.add("01"); //guate
+        listaDeptosMetro.add("02"); //sacatepequez
+     
+        CRegion region = new CRegion("M", "Metropolitana"); 
+        region.setListaCodigoDeptos(listaDeptosMetro);
+
+        Regiones.add(region);
+
         
         //norte
-//        CUbicacion dptoQuiche = new CUbicacion("02", "Quiche");
-//        CUbicacion dptoPeten = new CUbicacion("05", "Peten");
+        ArrayList<String> listaDeptosNorte = new ArrayList<>();
+        listaDeptosNorte.add("03");
+        listaDeptosNorte.add("04");
         
+        region = new CRegion("NT", "Norte");
+        region.setListaCodigoDeptos(listaDeptosNorte);
         
-//        CRegion regNorte = new CRegion("NT", "Norte");  
-//        ArrayList<CUbicacion> listaDeptosNorte = regNorte.getDepartamentos();
-//        listaDeptosNorte.add(dptoPeten);
-//        listaDeptosNorte.add(dptoQuiche);
-//        
-//        Regiones.add(regNorte);
+        Regiones.add(region);
+     
         
-        Regiones.add(new CRegion("NT", "Norte"));
-        Regiones.add(new CRegion("NO","Nororiente"));
-        Regiones.add(new CRegion("SO","Suroriente"));
-        Regiones.add(new CRegion("SOC","Suroccidente"));
-        Regiones.add(new CRegion("NOC","Noroccidente"));
+//        Regiones.add(new CRegion("NT", "Norte"));
+//        Regiones.add(new CRegion("NO","Nororiente"));
+//        Regiones.add(new CRegion("SO","Suroriente"));
+//        Regiones.add(new CRegion("SOC","Suroccidente"));
+//        Regiones.add(new CRegion("NOC","Noroccidente"));
     }
+    
+     public CRegion GetRegion(String codigo){
+        for (CRegion region : Regiones ) {
+            if ( codigo.equals(region.getCodigo()) ){
+                return region;
+            }
+        }
+        return null;
+    }
+    
+    
 }

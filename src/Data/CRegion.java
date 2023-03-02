@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class CRegion {
     String codigo;
     String nombre;
-   private ArrayList<String> Departamentos;
+   private ArrayList<String> ListaCodigoDeptos;
     
     public CRegion(String codigo, String  nombre){
         this.codigo=codigo;
         this.nombre=nombre; 
-        Departamentos=new ArrayList<>();
+        ListaCodigoDeptos=new ArrayList<>();
     }
 
     public String getCodigo() {
@@ -37,12 +37,19 @@ public class CRegion {
         this.nombre = nombre;
     }
 
-    public ArrayList<String> getDepartamentos() {
-        return Departamentos;
+    public ArrayList<String> getListaCodigoDeptos() {
+        return ListaCodigoDeptos;
     }
 
-    public void setDepartamentos(ArrayList<String> Departamentos) {
-        this.Departamentos = Departamentos;
+    public void setListaCodigoDeptos(ArrayList<String> ListaCodigoDeptos) {
+        this.ListaCodigoDeptos = ListaCodigoDeptos;
     }
+
+    @Override
+    public String toString() {
+        return "Codigo: " + this.codigo + " Nombre: " + this.nombre + " listaCodigosDptos: " + this.getListaCodigoDeptos();
+    }
+    
+    
     
 }
