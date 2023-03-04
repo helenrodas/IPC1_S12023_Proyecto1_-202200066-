@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import jdk.dynalink.linker.support.DefaultInternalObjectFilter;
 
 /**
  *
@@ -36,50 +37,41 @@ public class FrmUbicacion extends javax.swing.JFrame {
         //CargarDepartamentos();
        // CargarMunicipios();
         
+        //--Regiones
+        jTableRegiones.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                int i = jTableRegiones.getSelectedRow();
+
+                String codigo = jTableRegiones.getValueAt(i, 0).toString();
+
+                JOptionPane.showMessageDialog(null, data.GetRegion(codigo).toString());
+
+                ArrayList<String> listaCodigoDeptos = data.GetRegion(codigo).getListaCodigoDeptos();
+
+                CargarDepartamentos(listaCodigoDeptos);
+            }
+       });
+       
+       //--Deptos
         jTableDepartamentos.addMouseListener(new MouseAdapter(){
-        
             public void mouseClicked(MouseEvent e){
                 
             int i = jTableDepartamentos.getSelectedRow();
         
-            //txtNombreDpt.setText(jTableDepartamentos.getValueAt(i, 1).toString());
+            String codigoDepto=jTableDepartamentos.getValueAt(i, 0).toString();
             
-            String codigoDpt=jTableDepartamentos.getValueAt(i, 0).toString();
-            //JOptionPane.showMessageDialog(null, codigoDpt);
-                CargarMunicipios(codigoDpt);
+            ArrayList<CUbicacion> listaMunicipiosEnDepto = data.getListaMunicipios(codigoDepto);
             
+            CargarMunicipios(listaMunicipiosEnDepto, codigoDepto);
             }
        });
         
-        jTableMunicipios.addMouseListener(new MouseAdapter(){
-        
-            public void mouseClicked(MouseEvent e){
-            int i = jTableMunicipios.getSelectedRow();
-        
-            //txtNombreMuni.setText(jTableMunicipios.getValueAt(i, 1).toString());
-            }
-       });
-        
-        jTableRegiones.addMouseListener(new MouseAdapter(){
-             
-            public void mouseClicked(MouseEvent e){
-            int i = jTableRegiones.getSelectedRow();
-        
-            String codigo = jTableRegiones.getValueAt(i, 0).toString();
-            
-            JOptionPane.showMessageDialog(null, data.GetRegion(codigo).toString());
-            
-            ArrayList<String> listaCodigoDeptos = data.GetRegion(codigo).getListaCodigoDeptos();
-            //--"01", "02"
-            CargarDepartamentos(listaCodigoDeptos);
-            }
-       });
     }
    
     private void CargarDepartamentos(ArrayList<String> listaCodigoDeptos){
        String Datos[][] = new String[listaCodigoDeptos.size()][30];
        jTableDepartamentos.removeAll();
-    
+       
         for (int j = 0; j < listaCodigoDeptos.size(); j++) {
             for (int i = 0; i < listaDepartamentos.size(); i++) {
                 if(listaDepartamentos.get(i).getCodigo().startsWith(listaCodigoDeptos.get(j))){
@@ -91,30 +83,22 @@ public class FrmUbicacion extends javax.swing.JFrame {
     
         jTableDepartamentos.setModel(new javax.swing.table.DefaultTableModel(Datos, new String [] {"Codigo","Nombre"}) );
     } 
+
     
-    
-    private void CargarDepartamentos(String codigoDepto){
-       String Datos[][] = new String[listaDepartamentos.size()][100];
-    
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
-            if(listaDepartamentos.get(i).getCodigo().startsWith(codigoDepto)){
-            Datos[i][0]=listaDepartamentos.get(i).getCodigo();
-            Datos[i][1]=listaDepartamentos.get(i).getNombre();
-            }
+    private void CargarMunicipios(ArrayList<CUbicacion> listaMunicipiosEnDepto, String codigoDepto){
+       
+       String Datos[][] = new String[listaMunicipiosEnDepto.size()][30];
+       jTableMunicipios.removeAll();
+       int indice=0;
             
-        }
-        jTableDepartamentos.setModel(new javax.swing.table.DefaultTableModel(Datos, new String [] {"Codigo","Nombre"}) );
-    }
-    
-    private void CargarMunicipios(String codigoDepto){
-       String Datos[][] = new String[listaMunicipios.size()][100];
-    
         for (int i = 0; i < listaMunicipios.size(); i++) {
-            if( listaMunicipios.get(i).getCodigo().startsWith(codigoDepto) ){
-                Datos[i][0]=listaMunicipios.get(i).getCodigo();
-                Datos[i][1]=listaMunicipios.get(i).getNombre();
-            }
+         if( listaMunicipios.get(i).getCodigo().startsWith(codigoDepto) ){
+                Datos[indice][0]=listaMunicipios.get(i).getCodigo();
+                Datos[indice][1]=listaMunicipios.get(i).getNombre();
+                indice ++;
+         }
         }
+
         jTableMunicipios.setModel(new javax.swing.table.DefaultTableModel(Datos, new String [] {"Codigo","Nombre"}) );
     }
     
@@ -146,6 +130,7 @@ public class FrmUbicacion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableDepartamentos = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
@@ -157,10 +142,7 @@ public class FrmUbicacion extends javax.swing.JFrame {
 
         jTableMunicipios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Codigo", "Nombre"
@@ -178,29 +160,43 @@ public class FrmUbicacion extends javax.swing.JFrame {
 
         jLabel6.setText("Regiones");
 
+        btnRegresar.setText("Regresar");
+        btnRegresar.setBorder(null);
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel6)
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel3)
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnRegresar)
+                .addGap(121, 121, 121)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(152, 152, 152)
+                .addComponent(jLabel4)
+                .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar)))
+                .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,7 +205,7 @@ public class FrmUbicacion extends javax.swing.JFrame {
 
         jTableDepartamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Codigo", "Nombre"
@@ -256,34 +252,32 @@ public class FrmUbicacion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
                                 .addComponent(btnAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar)
-                                .addGap(223, 223, 223))
+                                .addGap(55, 55, 55)
+                                .addComponent(btnEliminar))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 35)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -301,6 +295,19 @@ public class FrmUbicacion extends javax.swing.JFrame {
 
     private void jTableRegionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRegionesMouseClicked
             }//GEN-LAST:event_jTableRegionesMouseClicked
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        if(evt.getSource()== btnRegresar){
+
+            FrmAdmin frmAdmin = new FrmAdmin(data);
+            frmAdmin.setDefaultCloseOperation(FrmAdmin.DISPOSE_ON_CLOSE);
+            frmAdmin.setLocationRelativeTo(null);
+            frmAdmin.setVisible(true);
+            this.setVisible(false);
+
+        }
+
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -340,6 +347,7 @@ public class FrmUbicacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

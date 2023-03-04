@@ -5,6 +5,7 @@
 package Inicializar;
 
 //import Administrador.CKiosco;
+import Usuario.FrmUser;
 import Data.*;
 //import Data.CUsuario;
 //import Data.CKiosco;
@@ -33,9 +34,9 @@ public class FrmAutenticacion extends javax.swing.JFrame {
         // initRegiones();
         this.data=data;
         this.setTitle("Autenticacion");
-        
-        
+        //String correo = txtCorreo.getText();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,15 +137,12 @@ public class FrmAutenticacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
      
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
         String correo = txtCorreo.getText();
         char [] pwd = txtPwd.getPassword();
         String pwdAsString = String.valueOf(pwd);
         String correoAdmin="123";
         String pwdAdmin = "123";
 
-        
-       
         if( correo.isBlank() || pwdAsString.isBlank() ){
             JOptionPane.showMessageDialog( this,  "Correo y clave son campos obligatorios");
             txtCorreo.setText("");
@@ -173,8 +171,8 @@ public class FrmAutenticacion extends javax.swing.JFrame {
             }
             
             //si encontro al usuraio!!
-            //JOptionPane.showMessageDialog( this,  "Usuario encontrado!");
-
+            data.setUsurioActual(usuario);
+            
             String rol = usuario.getRol();
             
            JOptionPane.showMessageDialog( this,  "Rol encontreado: ".concat(rol));
@@ -206,24 +204,7 @@ public class FrmAutenticacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-        
-//    private void initRegiones(){
-//        //CRegiones region = new CRegiones( "Metropolitana", "15", "10" );
-//        
-//        Regiones.add(new CRegiones("Norte","20", "40"));
-//        Regiones.add(new CRegiones("Sur","20", "40"));
-//        Regiones.add(new CRegiones("Central","20", "40"));
-//        
-//    }
-    
-//    private CUsuario GetUsuario(String correo, String clave){
-//        for (CUsuario usuario : Usuarios ) {
-//            if ( correo.equals(Usuario.getCorreo()) && clave.equals(Usuario.getPassword())  ){
-//                return Usuario;
-//            }
-//        }
-//        return null;
-//    }
+
     
     @Override
     public Graphics getGraphics() {

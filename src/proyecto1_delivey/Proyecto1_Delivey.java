@@ -5,7 +5,9 @@
 package proyecto1_delivey;
 
 import Data.*;
+
 import Inicializar.FrmInicio;
+import Usuario.FrmUser;
 
 
 /**
@@ -13,20 +15,21 @@ import Inicializar.FrmInicio;
  * @author lenovo
  */
 public class Proyecto1_Delivey {
-   //public class DatosUsuarios {
-    
-//}
    
     public static void main(String[] args) {
        
        Data data = new Data();
-       data.InitRegiones();
-       data.InitTarifas();
-       data.InitUbicaciones();
         
-        FrmInicio frmInicio = new FrmInicio(data);
-        frmInicio.setLocationRelativeTo(null);
-        frmInicio.setVisible(true);
-  
+       data.Init();
+        
+//        FrmInicio frmInicio = new FrmInicio(data);
+//        frmInicio.setLocationRelativeTo(null);
+//        frmInicio.setVisible(true);
+
+          FrmUser frmUser = new FrmUser(data);
+          frmUser.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
+          frmUser.setLocationRelativeTo(null);
+          frmUser.setVisible(true);
+
     }
 }

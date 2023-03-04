@@ -6,7 +6,7 @@ package Administrador;
 
 import java.util.ArrayList;
 import Inicializar.FrmInicio;
-import Inicializar.FrmUser;
+import Usuario.FrmUser;
 //import Administrador.FrmRegiones;
 import Data.*;
 /**

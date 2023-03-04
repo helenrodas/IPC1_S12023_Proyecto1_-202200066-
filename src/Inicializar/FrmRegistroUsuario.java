@@ -21,6 +21,7 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
         initComponents();
         this.data=data;
         ListaUsuario=data.getUsuarios();
+        
     }
     
 

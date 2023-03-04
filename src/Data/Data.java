@@ -19,6 +19,8 @@ public class Data {
     private ArrayList<CUbicacion> Departamentos;
     private ArrayList<CUbicacion> Municipios;
     private ArrayList<CRegion> Regiones;
+    private ArrayList<CTarjeta> Tarjetas;
+    private CUsuario usuarioActual;
     
     public Data(){
        Usuarios=new ArrayList<>();
@@ -27,6 +29,7 @@ public class Data {
        Departamentos=new ArrayList<>();
        Municipios=new ArrayList<>();
        Regiones= new ArrayList<>();
+       Tarjetas = new ArrayList<>();
     }    
 
     public ArrayList<CUsuario> getUsuarios() {
@@ -76,8 +79,24 @@ public class Data {
     public void setRegiones(ArrayList<CRegion> Regiones) {
         this.Regiones = Regiones;
     }
+
+    public ArrayList<CTarjeta> getTarjetas() {
+        return Tarjetas;
+    }
+
+    public void setTarjetas(ArrayList<CTarjeta> Tarjetas) {
+        this.Tarjetas = Tarjetas;
+    }
     
-    
+    public CUsuario getUsuarioActual() {
+        return usuarioActual;
+    }
+
+    public void setUsurioActual(CUsuario usuario) {
+        this.usuarioActual = usuario;
+    }
+
+
     //--Seccion Usuario
     public CUsuario GetUsuario(String correo, String clave){
         for (CUsuario usuario : Usuarios ) {
@@ -88,8 +107,18 @@ public class Data {
         return null;
     }
     
-    //--Seccion Tarifas
+    public String GetNombreUsuario(String correo){
+    for (CUsuario usuario : Usuarios ) {
+        if ( correo.equals(usuario.getCorreo())){
+            return usuario.getNombre();
+        }
+    }
+    return null;
+    }
+   
+
     
+    //--Seccion Tarifas
     public void eliminarTarifas(Double precioEstandar, Double precioEspecial){
         
         for (int i = 0; i < Tarifas.size(); i++) {
@@ -153,35 +182,91 @@ public class Data {
     
     
     //--Seccion Ubicaciones--
-    
-    public void InitUbicaciones(){
-        Departamentos.add(new CUbicacion("01", "Guatemala"));
-        Municipios.add(new CUbicacion("0101","Mixco"));
+    public ArrayList<CUbicacion> getListaMunicipios( String codigoDepto){
+        ArrayList<CUbicacion> listaMunicipios = new ArrayList<>();
         
-        Departamentos.add(new CUbicacion("02", "Sacatepequez"));
-        Municipios.add(new CUbicacion("0201","Nebaj"));
+        for (CUbicacion municipio : Municipios) {
+            if( municipio.getCodigo().startsWith(codigoDepto)){
+                listaMunicipios.add(municipio);
+            }
+        }
         
-        Departamentos.add(new CUbicacion("03", "Quiche"));
-        
+        return  listaMunicipios;
     }
     
     
+    public void InitUbicaciones(){
+        Departamentos.add(new CUbicacion("01", "Guatemala"));
+        
+        Municipios.add(new CUbicacion("0101","Guatemala"));
+        Municipios.add(new CUbicacion("0102","Mixco"));
+        Municipios.add(new CUbicacion("0103","Amatitlan"));
+        Municipios.add(new CUbicacion("0104","Villa Nueva"));
+        Municipios.add(new CUbicacion("0105","Palencia"));
+               
+        Departamentos.add(new CUbicacion("15", "Baja Verapaz"));
+        
+        Municipios.add(new CUbicacion("1501","Salama"));
+        Municipios.add(new CUbicacion("1502","El Chol"));
+        Municipios.add(new CUbicacion("1503","Rabinal"));
+        Municipios.add(new CUbicacion("1504","Cubulco"));
+        Municipios.add(new CUbicacion("1505","Granados"));
+        
+        Departamentos.add(new CUbicacion("02", "El progreso"));
+       
+        Municipios.add(new CUbicacion("0201","Guastatoya"));
+        Municipios.add(new CUbicacion("0202","Morazan"));
+        Municipios.add(new CUbicacion("0203","El Jicaro"));
+        Municipios.add(new CUbicacion("0204","Sansare"));
+        Municipios.add(new CUbicacion("0205","Sanarate"));
+        
+        Departamentos.add(new CUbicacion("22", "Jutiapa"));
+        
+        Municipios.add(new CUbicacion("2201","Comapa"));
+        Municipios.add(new CUbicacion("2202","Jalpatagua"));
+        Municipios.add(new CUbicacion("2203","Conguaco"));
+        Municipios.add(new CUbicacion("2204","Moyuta"));
+        Municipios.add(new CUbicacion("2205","Pasaco"));
+        
+        Departamentos.add(new CUbicacion("09", "Quetzaltenango"));
+        
+        Municipios.add(new CUbicacion("0901","Almolonga"));
+        Municipios.add(new CUbicacion("0902","Cantel"));
+        Municipios.add(new CUbicacion("0903","Huitan"));
+        Municipios.add(new CUbicacion("0904","Zunil"));
+        Municipios.add(new CUbicacion("0905","Colomba"));
+
+        Departamentos.add(new CUbicacion("14", "Quiche"));
+        
+        Municipios.add(new CUbicacion("1401","Chiche"));
+        Municipios.add(new CUbicacion("1402","Chinique"));
+        Municipios.add(new CUbicacion("1403","Zacualpa"));
+        Municipios.add(new CUbicacion("1404","Chajul"));
+        Municipios.add(new CUbicacion("1405","Pachalum"));
+                        
+    }
+        
+    public void Init(){
+        InitRegiones();
+        InitTarifas();
+       InitUbicaciones();
+    }
+      
     //--seccion regiones
     public void InitRegiones(){
-        ArrayList<String> listaDeptosMetro = new ArrayList<>();  //regMetropolitana.getDepartamentos();
+        //Metropolitana
+        ArrayList<String> listaDeptosMetro = new ArrayList<>();  
         listaDeptosMetro.add("01"); //guate
-        listaDeptosMetro.add("02"); //sacatepequez
-     
+            
         CRegion region = new CRegion("M", "Metropolitana"); 
         region.setListaCodigoDeptos(listaDeptosMetro);
-
+        
         Regiones.add(region);
 
         
         //norte
         ArrayList<String> listaDeptosNorte = new ArrayList<>();
-        listaDeptosNorte.add("03");
-        listaDeptosNorte.add("04");
+        listaDeptosNorte.add("15"); // Baja Verapaz
         
         region = new CRegion("NT", "Norte");
         region.setListaCodigoDeptos(listaDeptosNorte);
@@ -189,14 +274,48 @@ public class Data {
         Regiones.add(region);
      
         
-//        Regiones.add(new CRegion("NT", "Norte"));
-//        Regiones.add(new CRegion("NO","Nororiente"));
-//        Regiones.add(new CRegion("SO","Suroriente"));
-//        Regiones.add(new CRegion("SOC","Suroccidente"));
-//        Regiones.add(new CRegion("NOC","Noroccidente"));
+        //nororiente
+        ArrayList<String> listaDeptosNororiente = new ArrayList<>();
+        listaDeptosNororiente.add("02"); //El Progreso
+        
+        region = new CRegion("NO", "Nororiente");
+        region.setListaCodigoDeptos(listaDeptosNororiente);
+        
+        Regiones.add(region);
+        
+        
+        //Suroriente
+        ArrayList<String> listaDeptosSuroriente = new ArrayList<>();
+        listaDeptosSuroriente.add("22"); //Jutiapa
+        
+        region = new CRegion("SO", "Suroriente");
+        region.setListaCodigoDeptos(listaDeptosSuroriente);
+        
+        Regiones.add(region);
+        
+        
+        //Suroccidente
+        ArrayList<String> listaDeptosSuroccidente = new ArrayList<>();
+        listaDeptosSuroccidente.add("09"); //Quetzaltenango
+        
+        region = new CRegion("SOC", "Suroccidente");
+        region.setListaCodigoDeptos(listaDeptosSuroccidente);
+        
+        Regiones.add(region);
+        
+        
+        //Noroccidente
+        ArrayList<String> listaDeptosNoroccidente = new ArrayList<>();
+        listaDeptosNoroccidente.add("14"); //Quiche
+        
+        region = new CRegion("NOC", "Noroccidente");
+        region.setListaCodigoDeptos(listaDeptosNoroccidente);
+        
+        Regiones.add(region);
+        
     }
     
-     public CRegion GetRegion(String codigo){
+    public CRegion GetRegion(String codigo){
         for (CRegion region : Regiones ) {
             if ( codigo.equals(region.getCodigo()) ){
                 return region;
@@ -204,6 +323,6 @@ public class Data {
         }
         return null;
     }
-    
+   
     
 }
