@@ -323,6 +323,54 @@ public class Data {
         }
         return null;
     }
-   
     
+    public CTarifa GetTarifa(String codigo){
+        for (CTarifa tarifa : Tarifas ) {
+            if ( codigo.equals(tarifa.getCodigo()) ){
+                return tarifa;
+            }
+        }
+        return null;
+    }
+    
+    public String GetCodigoDptoByNombre(String nombre){
+        for ( CUbicacion  departamento: Departamentos) {
+            if(nombre.equals(departamento.getNombre())){
+                return departamento.getCodigo();
+            }
+        }
+        return null;
+    }
+   
+    public String GetRegionByCodigoDpto(String codigoDpto){
+        for(CRegion region: Regiones){
+            
+            ArrayList<String> codigosDeptos = region.getListaCodigoDeptos();
+            
+            for (String codigosDepto : codigosDeptos) {
+               if(codigoDpto.equals(codigosDepto)){
+                    return region.getNombre();
+                } 
+            }
+        }
+        return null;
+    }
+    
+    public Double GetTarifaEstandarByNombreRegion(String nombreRegion){
+        for(CTarifa tarifa: Tarifas){
+            if(nombreRegion.equals(tarifa.getNombre())){
+                return tarifa.getPrecioEstandar();
+            }
+        }
+        return null;
+    }
+    
+    public Double GetTarifaEspecialByNombreRegion(String nombreRegion){
+        for(CTarifa tarifa: Tarifas){
+            if(nombreRegion.equals(tarifa.getNombre())){
+                return tarifa.getPrecioEspecial();
+            }
+        }
+        return null;
+    }
 }

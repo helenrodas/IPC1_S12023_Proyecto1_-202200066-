@@ -34,5 +34,10 @@ public class CUbicacion {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return getNombre(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
     
 }
