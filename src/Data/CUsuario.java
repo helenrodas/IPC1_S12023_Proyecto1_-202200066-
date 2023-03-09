@@ -8,7 +8,7 @@ package Data;
  *
  * @author lenovo
  */
-public class CUsuario {
+public class CUsuario  implements Cloneable  {
     String correo;
     String nombre;
     String apellido;
@@ -21,11 +21,8 @@ public class CUsuario {
     String nacionalidad;
     String alias;
     String foto;
+    String nit;
     
-    
-    
-    
-  //comboBoxGenero.getSelectedItem(); 
 
     public CUsuario(String correo, String nombre, String apellido, String password, String dpi, String telefono, String fecha, 
             String genero, String rol, String nacionalidad ) {
@@ -39,6 +36,7 @@ public class CUsuario {
         this.genero=genero;
         this.rol=rol;
         this.nacionalidad=nacionalidad;
+       
     }
 
     public String getCorreo() {
@@ -129,7 +127,7 @@ public class CUsuario {
         this.foto = foto;
     }
     
-     public String getAlias() {
+    public String getAlias() {
         return alias;
     }
 
@@ -137,4 +135,16 @@ public class CUsuario {
         this.alias = alias;
     }
     
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{  
+        return super.clone();  
+    }  
 }

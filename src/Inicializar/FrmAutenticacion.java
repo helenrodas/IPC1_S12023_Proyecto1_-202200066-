@@ -11,7 +11,6 @@ import Data.*;
 //import Data.CKiosco;
 import Administrador.FrmAdmin;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 //import javax.swing.JFrame;
 /**
@@ -142,6 +141,7 @@ public class FrmAutenticacion extends javax.swing.JFrame {
         String pwdAsString = String.valueOf(pwd);
         String correoAdmin="123";
         String pwdAdmin = "123";
+        CUsuario usuarioActual;
 
         if( correo.isBlank() || pwdAsString.isBlank() ){
             JOptionPane.showMessageDialog( this,  "Correo y clave son campos obligatorios");
@@ -171,7 +171,10 @@ public class FrmAutenticacion extends javax.swing.JFrame {
             }
             
             //si encontro al usuraio!!
-            data.setUsurioActual(usuario);
+            try{  
+                usuarioActual =  (CUsuario)usuario.clone();
+                data.setUsurioActual(usuarioActual);
+            }catch(CloneNotSupportedException c){}  
             
             String rol = usuario.getRol();
             

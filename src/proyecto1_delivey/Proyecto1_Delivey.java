@@ -22,14 +22,16 @@ public class Proyecto1_Delivey {
         
        data.Init();
         
-//        FrmInicio frmInicio = new FrmInicio(data);
-//        frmInicio.setLocationRelativeTo(null);
-//        frmInicio.setVisible(true);
-
-          FrmUser frmUser = new FrmUser(data);
-          frmUser.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
-          frmUser.setLocationRelativeTo(null);
-          frmUser.setVisible(true);
-
+        FrmInicio frmInicio = new FrmInicio(data);
+        frmInicio.setLocationRelativeTo(null);
+        frmInicio.setVisible(true);
     }
 }
+
+//          FrmUser frmUser = new FrmUser(data);
+//          frmUser.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
+//          frmUser.setLocationRelativeTo(null);
+//          frmUser.setVisible(true);
+//
+//    }
+

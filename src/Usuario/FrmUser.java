@@ -89,6 +89,11 @@ public class FrmUser extends javax.swing.JFrame {
 
         btnDescargarGuia.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
         btnDescargarGuia.setText("Descargar Factura y guia");
+        btnDescargarGuia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarGuiaActionPerformed(evt);
+            }
+        });
 
         btnEnvios.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
         btnEnvios.setText("Ver envios solicitados");
@@ -170,6 +175,25 @@ public class FrmUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        //--setear usuario actual
+        CUsuario usuarioActual = data.getUsuarioActual();
+        usuarioActual = null;
+
+//            data.getUsuarioActual().setNombre("");
+//            data.getUsuarioActual().setApellido("");
+//            data.getUsuarioActual().setAlias("");
+//            data.getUsuarioActual().setCorreo("");
+//            data.getUsuarioActual().setDpi("");
+//            data.getUsuarioActual().setFecha("");
+//            data.getUsuarioActual().setFoto("");
+//            data.getUsuarioActual().setGenero("");
+//            data.getUsuarioActual().setNacionalidad("");
+//            data.getUsuarioActual().setNit("");
+//            data.getUsuarioActual().setPassword("");
+//            data.getUsuarioActual().setRol("");
+//            data.getUsuarioActual().setTelefono("");
+//            
+        
                 FrmInicio frmInicio = new FrmInicio(data);
                 frmInicio.setLocationRelativeTo(null);
                 frmInicio.setVisible(true);
@@ -206,6 +230,16 @@ public class FrmUser extends javax.swing.JFrame {
             this.setVisible(false);
                       }
     }//GEN-LAST:event_btnCotizarActionPerformed
+
+    private void btnDescargarGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarGuiaActionPerformed
+            if(evt.getSource()== btnDescargarGuia){
+            FrmEtiquetaEnvio frmEtiquetaEnvio = new FrmEtiquetaEnvio(data);
+            frmEtiquetaEnvio.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
+            frmEtiquetaEnvio.setLocationRelativeTo(null);
+            frmEtiquetaEnvio.setVisible(true);
+            this.setVisible(false);
+                      }
+    }//GEN-LAST:event_btnDescargarGuiaActionPerformed
 
     /**
      * @param args the command line arguments

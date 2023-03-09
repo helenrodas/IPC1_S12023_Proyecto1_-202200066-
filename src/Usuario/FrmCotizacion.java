@@ -13,6 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class FrmCotizacion extends javax.swing.JFrame {
     Data data;
+    Double totalEstandar = 0.0;
+     Double totalEspecial = 0.0;
+     String tipoPrecio = "";
+     String tipoPago="";
+    
+     public ArrayList<CTransaccion> listaTransacciones;
     /**
      * Creates new form FrmCotizacion
      */
@@ -20,6 +26,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
         initComponents();
         this.data = data;
         CargarDepartamentos();
+        listaTransacciones = data.getListaTransacciones();
     }
 
 
@@ -58,18 +65,23 @@ public class FrmCotizacion extends javax.swing.JFrame {
         jComboBoxPeso = new javax.swing.JComboBox<>();
         jPanelInfoPago = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
+        jRadioButtonCobroContraEntrega = new javax.swing.JRadioButton();
+        jRadioButtonCobroConTarjeta = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        jComboBoxDatosFactura = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtTotalAPagar = new javax.swing.JTextField();
+        btnRealizarPago = new javax.swing.JButton();
+        btnFactura = new javax.swing.JButton();
+        btnDescargarGuia = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jPanelDatosTarjeta = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBoxTarjetas = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        txtCvv = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +125,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
 
         grpPrecio.add(jRadioButtonPrecioEstandar);
         jRadioButtonPrecioEstandar.setText("Precio Estandar");
+        jRadioButtonPrecioEstandar.setActionCommand("PrecioEstandar");
 
         jLabel6.setText("Total: Q");
 
@@ -153,6 +166,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
 
         grpPrecio.add(jRadioButtonPrecioEspecial);
         jRadioButtonPrecioEspecial.setText("Precio Especial");
+        jRadioButtonPrecioEspecial.setActionCommand("PrecioEspecial");
 
         jLabel7.setText("Total: Q");
 
@@ -308,19 +322,39 @@ public class FrmCotizacion extends javax.swing.JFrame {
 
         jLabel8.setText("Tipo de Pago");
 
-        grpPago.add(jRadioButton6);
-        jRadioButton6.setText("Cobro Contra Entrega (Se cobran Q5.00 Adicionales)");
+        grpPago.add(jRadioButtonCobroContraEntrega);
+        jRadioButtonCobroContraEntrega.setText("Cobro Contra Entrega (Se cobran Q5.00 Adicionales)");
+        jRadioButtonCobroContraEntrega.setActionCommand("Contra_Entrega");
+        jRadioButtonCobroContraEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCobroContraEntregaActionPerformed(evt);
+            }
+        });
 
-        grpPago.add(jRadioButton7);
-        jRadioButton7.setText("Cobro a mi cuenta(Pago con tarjeta)");
+        grpPago.add(jRadioButtonCobroConTarjeta);
+        jRadioButtonCobroConTarjeta.setText("Cobro a mi cuenta(Pago con tarjeta)");
+        jRadioButtonCobroConTarjeta.setActionCommand("Cobro_Con_Tarjeta");
+        jRadioButtonCobroConTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCobroConTarjetaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Datos de Facturacion");
+
+        jComboBoxDatosFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDatosFacturaActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel10.setText("Tipo de Servicio(Estandar o Especial)");
 
         jLabel11.setText("Total: Q");
+
+        txtTotalAPagar.setEditable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -335,8 +369,8 @@ public class FrmCotizacion extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addComponent(txtTotalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,45 +380,108 @@ public class FrmCotizacion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField1))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(txtTotalAPagar))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Realizar Pago y Enviar");
+        btnRealizarPago.setText("Realizar Pago y Enviar");
+        btnRealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarPagoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Descargar Factura");
+        btnFactura.setText("Descargar Factura");
+        btnFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturaActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Descargar Guia");
+        btnDescargarGuia.setText("Descargar Guia");
+        btnDescargarGuia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarGuiaActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Cancelar Envio");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        jPanelDatosTarjeta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel14.setText("Seleccion Tarjeta ");
+
+        jLabel15.setText("CVV");
+
+        javax.swing.GroupLayout jPanelDatosTarjetaLayout = new javax.swing.GroupLayout(jPanelDatosTarjeta);
+        jPanelDatosTarjeta.setLayout(jPanelDatosTarjetaLayout);
+        jPanelDatosTarjetaLayout.setHorizontalGroup(
+            jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosTarjetaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(35, 35, 35)
+                .addGroup(jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCvv, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        jPanelDatosTarjetaLayout.setVerticalGroup(
+            jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosTarjetaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDatosTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCvv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanelInfoPagoLayout = new javax.swing.GroupLayout(jPanelInfoPago);
         jPanelInfoPago.setLayout(jPanelInfoPagoLayout);
         jPanelInfoPagoLayout.setHorizontalGroup(
             jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
-                        .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton7)
-                                .addComponent(jLabel9)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8)
-                                .addComponent(jRadioButton6))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
-                        .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                        .addContainerGap()
+                        .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                                .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButtonCobroConTarjeta)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jComboBoxDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jRadioButtonCobroContraEntrega))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
+                                .addGap(0, 12, Short.MAX_VALUE)
+                                .addComponent(btnFactura)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDescargarGuia)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnCancelar))))
+                    .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanelDatosTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanelInfoPagoLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(btnRealizarPago)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInfoPagoLayout.setVerticalGroup(
             jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,22 +489,24 @@ public class FrmCotizacion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton6)
+                .addComponent(jRadioButtonCobroContraEntrega)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton7)
+                .addComponent(jRadioButtonCobroConTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addComponent(jComboBoxDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelDatosTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRealizarPago)
+                .addGap(26, 26, 26)
                 .addGroup(jPanelInfoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnFactura)
+                    .addComponent(btnDescargarGuia))
                 .addContainerGap())
         );
 
@@ -427,7 +526,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
                         .addComponent(jPanelInfoPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelInfoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,33 +575,19 @@ public class FrmCotizacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxDeptoDestinoActionPerformed
 
     private void btnCotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizarActionPerformed
-
-        if( !validarCampos()){
+        if( !validarCamposCotizacion()){
             return;
         }
-        
+
         String deptoOrigen = jComboBoxDeptoOrigen.getSelectedItem().toString();
-        String muniOrigen = jComboBoxMuniOrigen.getSelectedItem().toString();
-        String direccionOrigen = txtDireccionOrigen.getText();
-        String deptoDestino = jComboBoxDeptoDestino.getSelectedItem().toString();
-        String muniDestino = jComboBoxMuniDestino.getSelectedItem().toString();
-        String direccionDestino = txtDireccionDestino.getText();
         int numPaquetes = Integer.parseInt(txtNumeroPaquetes.getText());
         String peso = jComboBoxPeso.getSelectedItem().toString();
-        Double totalEstandar = 0.0;
-        Double totalEspecial = 0.0;
-        
-        CCotizacion cotizacion = new CCotizacion(deptoOrigen, muniOrigen, direccionOrigen, 
-           deptoDestino,muniDestino, direccionDestino,peso ,numPaquetes );
-         
-        
         String codigodpto = data.GetCodigoDptoByNombre(deptoOrigen);
         String nombreRegion = data.GetRegionByCodigoDpto(codigodpto);
         Double tarifaEstandar = data.GetTarifaEstandarByNombreRegion(nombreRegion);
         Double tarifaEspecial = data.GetTarifaEspecialByNombreRegion(nombreRegion);
         
-        //JOptionPane.showMessageDialog(null,"Cotizacion realizada con exito");
-    
+          
         if(peso.equalsIgnoreCase("Pequeño de 1 a 10 lbs")){
             totalEstandar = (tarifaEstandar * 15 * numPaquetes);
             totalEspecial = (tarifaEspecial * 15 * numPaquetes);
@@ -526,11 +611,102 @@ public class FrmCotizacion extends javax.swing.JFrame {
             txtTotalEstandar.setText(totalEstandar.toString());
             txtTotalEspecial.setText(totalEspecial.toString());
         }
-        
     }//GEN-LAST:event_btnCotizarActionPerformed
 
+    private void btnRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPagoActionPerformed
+        if( !validarCamposCotizacion()){
+            return;
+        }
+        
+       if( !validarCamposCompra() ){
+            return;
+        }
+         
+       
+        String deptoOrigen = jComboBoxDeptoOrigen.getSelectedItem().toString();
+        String muniOrigen = jComboBoxMuniOrigen.getSelectedItem().toString();
+        String direccionOrigen = txtDireccionOrigen.getText();
+        String deptoDestino = jComboBoxDeptoDestino.getSelectedItem().toString();
+        String muniDestino = jComboBoxMuniDestino.getSelectedItem().toString();
+        String direccionDestino = txtDireccionDestino.getText();
+        int numPaquetes = Integer.parseInt(txtNumeroPaquetes.getText());
+        String peso = jComboBoxPeso.getSelectedItem().toString();
+        
+        String tipoPrecio = grpPrecio.getSelection().getActionCommand();
+        String tipoPago = grpPago.getSelection().getActionCommand();
+        String datosFactura = jComboBoxDatosFactura.getSelectedItem().toString();
+        String total = txtTotalAPagar.getText().trim();
+        String datosTarjeta = jComboBoxTarjetas.getSelectedItem().toString();
+        String cvv = txtCvv.getText().trim();
+        
+                
+      CTransaccion compra = new CTransaccion(deptoOrigen, muniOrigen, direccionOrigen, deptoDestino, muniDestino, direccionDestino, peso, numPaquetes, tipoPrecio, 
+               tipoPago,datosFactura, total,datosTarjeta ,cvv);
+         
+      listaTransacciones.add(compra);
+      
+      JOptionPane.showMessageDialog(this,"Operacion realizada con exito!");
+      
+      LimpiarFormulario();
+    }//GEN-LAST:event_btnRealizarPagoActionPerformed
+
+    private void jRadioButtonCobroContraEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCobroContraEntregaActionPerformed
+       CargarDatosFactura();
+       CargarTotalAPagar();
+    }//GEN-LAST:event_jRadioButtonCobroContraEntregaActionPerformed
+
+    private void jRadioButtonCobroConTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCobroConTarjetaActionPerformed
+       CargarDatosFactura();
+       CargarTotalAPagar();
+    }//GEN-LAST:event_jRadioButtonCobroConTarjetaActionPerformed
+
+    private void jComboBoxDatosFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDatosFacturaActionPerformed
+        CargarDatosTarjeta();
+    }//GEN-LAST:event_jComboBoxDatosFacturaActionPerformed
+
+    private void btnDescargarGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarGuiaActionPerformed
+        if(evt.getSource()== btnDescargarGuia){
+            FrmEtiquetaEnvio frmEtiquetaEnvio = new FrmEtiquetaEnvio(data);
+            frmEtiquetaEnvio.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
+            frmEtiquetaEnvio.setLocationRelativeTo(null);
+            frmEtiquetaEnvio.setVisible(true);
+            this.setVisible(false);
+                      }
+    }//GEN-LAST:event_btnDescargarGuiaActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        LimpiarFormulario();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
+        FrmFactura frmFactura = new FrmFactura(data);
+        frmFactura.setDefaultCloseOperation(FrmAdmin.DISPOSE_ON_CLOSE);
+        frmFactura.setLocationRelativeTo(null);
+        frmFactura.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnFacturaActionPerformed
+
+    public void LimpiarFormulario(){
+       jComboBoxDeptoOrigen.setSelectedIndex(0);
+        jComboBoxMuniOrigen.setSelectedIndex(0);
+        jComboBoxDeptoDestino.setSelectedIndex(0);
+        jComboBoxMuniDestino.setSelectedIndex(0);
+        txtDireccionOrigen.setText("");
+        txtDireccionDestino.setText("");
+        txtNumeroPaquetes.setText("");
+        jComboBoxPeso.setSelectedIndex(0);
+        grpPrecio.clearSelection();
+        txtTotalEspecial.setText("");
+        txtTotalEstandar.setText("");
+        grpPago.clearSelection();
+        jComboBoxDatosFactura.setSelectedIndex(0);
+        txtTotalAPagar.setText("");
+        jComboBoxTarjetas.setSelectedIndex(0);
+        txtCvv.setText(""); 
+    }
+
     
-    private boolean validarCampos(){
+    private boolean validarCamposCotizacion(){
         if(jComboBoxDeptoOrigen.getSelectedIndex() == 0 ){
             JOptionPane.showMessageDialog(this, "Departamento de origen es invalido!", "Error", JOptionPane.ERROR_MESSAGE);          
             return  false;
@@ -631,31 +807,124 @@ public class FrmCotizacion extends javax.swing.JFrame {
                   }
             }   
         }
+        
+      private boolean validarCamposCompra(){
+        if(jRadioButtonPrecioEstandar.isSelected()==false && jRadioButtonPrecioEspecial.isSelected()==false){
+            JOptionPane.showMessageDialog(this, "Seleccione un precio!", "Error", JOptionPane.ERROR_MESSAGE);          
+            return  false;
+        }
+         
+        if(jRadioButtonCobroContraEntrega.isSelected()==false && jRadioButtonCobroConTarjeta.isSelected()==false ){
+            JOptionPane.showMessageDialog(this,"Seleccione un tipo de pago!","Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(jComboBoxDatosFactura.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(this,"Seleccione datos para Factura!","Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+      
+        if (jRadioButtonCobroConTarjeta.isSelected()) {
+             String cvv = txtCvv.getText().trim();
+            if (cvv.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Datos cvv son requeridos!", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            // Verificamos que el cvv contenga sólo números enteros
+            if (!cvv.matches("\\d+")) {
+             JOptionPane.showMessageDialog(this, "CVV es invalido!", "Error", JOptionPane.ERROR_MESSAGE);
+             return false;
+            }
+            if (cvv.length() != 3) {
+                 JOptionPane.showMessageDialog(this, "CVV es invalido!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+            }
+        }
+    return true;
+
+      }
+      
+      private void CargarDatosTarjeta(){
+         // String numTarjeta = data.getTarjetaIngresada().getNumero();
+         String numTarjeta = "12345678932";
+         String tarjetaOfuscada = "XXXX-XXXX-XXXX-";
+         String caracteresAMostrar = numTarjeta.substring(numTarjeta.length() - 4);
+         String tarjetaAMostrar = tarjetaOfuscada.substring(0, tarjetaOfuscada.length() - 4)  + caracteresAMostrar;
+          
+          jComboBoxTarjetas.removeAllItems();
+          jComboBoxTarjetas.addItem("---");
+          jComboBoxTarjetas.addItem(tarjetaAMostrar);
+      }
+      
+      private void CargarDatosFactura(){
+        String nombre = "Helen";
+        String apellido = "Rodas";
+        String nit = "12345678";
+        //String nombre = data.getUsuarioActual().getNombre();
+        //String apellido = data.getUsuarioActual().getApellido();
+        //String nit = data.getUsuarioActual().getNit();
+        String datosFactura = nombre + " " + apellido + " " + "||" + " " +"Nit: " + nit ;
+        
+        jComboBoxDatosFactura.removeAllItems();
+        jComboBoxDatosFactura.addItem("---");
+        jComboBoxDatosFactura.addItem(datosFactura);
+      }
+      
+      private void CargarTotalAPagar(){
+          if(jRadioButtonPrecioEstandar.isSelected() && jRadioButtonCobroContraEntrega.isSelected()){
+            Double total = (totalEstandar + 5);
+            String totalAsString = total.toString();
+            txtTotalAPagar.setText(totalAsString);
+            jPanelDatosTarjeta.setVisible(false);
             
+        }else if(jRadioButtonPrecioEspecial.isSelected() && jRadioButtonCobroContraEntrega.isSelected()){
+            Double total = (totalEspecial + 5);
+            String totalAsString = total.toString();
+            txtTotalAPagar.setText(totalAsString);
+            jPanelDatosTarjeta.setVisible(false);
+            
+        }else if(jRadioButtonPrecioEstandar.isSelected() && jRadioButtonCobroConTarjeta.isSelected()){
+            Double total = totalEstandar;
+            String totalAsString = total.toString();
+            txtTotalAPagar.setText(totalAsString);
+            jPanelDatosTarjeta.setVisible(true);
+            
+        }else if(jRadioButtonPrecioEspecial.isSelected() && jRadioButtonCobroConTarjeta.isSelected()){
+            Double total = totalEspecial;
+            String totalAsString = total.toString();
+            txtTotalAPagar.setText(totalAsString);
+            jPanelDatosTarjeta.setVisible(true);
+        
+        }
+      }
+       
             
            
          
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCotizar;
+    private javax.swing.JButton btnDescargarGuia;
+    private javax.swing.JButton btnFactura;
+    private javax.swing.JButton btnRealizarPago;
     private javax.swing.JButton btnRegresar;
     private javax.swing.ButtonGroup grpPago;
     private javax.swing.ButtonGroup grpPrecio;
     private javax.swing.ButtonGroup grpTamanio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBoxDatosFactura;
     private javax.swing.JComboBox jComboBoxDeptoDestino;
     private javax.swing.JComboBox jComboBoxDeptoOrigen;
     private javax.swing.JComboBox<String> jComboBoxMuniDestino;
     private javax.swing.JComboBox<String> jComboBoxMuniOrigen;
     private javax.swing.JComboBox<String> jComboBoxPeso;
+    private javax.swing.JComboBox<String> jComboBoxTarjetas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -665,18 +934,20 @@ public class FrmCotizacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelDatosTarjeta;
     private javax.swing.JPanel jPanelInfoPago;
     private javax.swing.JPanel jPanelInfoPrecios;
     private javax.swing.JPanel jPanelPrecioEspecial;
     private javax.swing.JPanel jPanelPrecioEstandar;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButtonCobroConTarjeta;
+    private javax.swing.JRadioButton jRadioButtonCobroContraEntrega;
     private javax.swing.JRadioButton jRadioButtonPrecioEspecial;
     private javax.swing.JRadioButton jRadioButtonPrecioEstandar;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCvv;
     private javax.swing.JTextField txtDireccionDestino;
     private javax.swing.JTextField txtDireccionOrigen;
     private javax.swing.JTextField txtNumeroPaquetes;
+    private javax.swing.JTextField txtTotalAPagar;
     private javax.swing.JTextField txtTotalEspecial;
     private javax.swing.JTextField txtTotalEstandar;
     // End of variables declaration//GEN-END:variables

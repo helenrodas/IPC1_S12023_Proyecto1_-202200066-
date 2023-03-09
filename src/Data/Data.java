@@ -21,6 +21,9 @@ public class Data {
     private ArrayList<CRegion> Regiones;
     private ArrayList<CTarjeta> Tarjetas;
     private CUsuario usuarioActual;
+    private CTarjeta tarjetaIngresada;
+    private CTransaccion transaccionRegistrada;
+    private ArrayList<CTransaccion> listaTransacciones;
     
     public Data(){
        Usuarios=new ArrayList<>();
@@ -30,6 +33,7 @@ public class Data {
        Municipios=new ArrayList<>();
        Regiones= new ArrayList<>();
        Tarjetas = new ArrayList<>();
+       listaTransacciones = new ArrayList<>();
     }    
 
     public ArrayList<CUsuario> getUsuarios() {
@@ -95,6 +99,32 @@ public class Data {
     public void setUsurioActual(CUsuario usuario) {
         this.usuarioActual = usuario;
     }
+
+    public CTarjeta getTarjetaIngresada() {
+        return tarjetaIngresada;
+    }
+
+    public void setTarjetaIngresada(CTarjeta tarjetaIngresada) {
+        this.tarjetaIngresada = tarjetaIngresada;
+    }
+
+    public CTransaccion getTransaccionRegistrada() {
+        return transaccionRegistrada;
+    }
+
+    public void setTransaccionRegistrada(CTransaccion transaccionRegistrada) {
+        this.transaccionRegistrada = transaccionRegistrada;
+    }
+
+    public ArrayList<CTransaccion> getListaTransacciones() {
+        return listaTransacciones;
+    }
+
+    public void setListaTransacciones(ArrayList<CTransaccion> listaTransacciones) {
+        this.listaTransacciones = listaTransacciones;
+    }
+    
+   //---------------------------------------------------------------
 
 
     //--Seccion Usuario
@@ -373,4 +403,5 @@ public class Data {
         }
         return null;
     }
+    
 }

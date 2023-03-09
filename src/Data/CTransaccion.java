@@ -8,7 +8,7 @@ package Data;
  *
  * @author lenovo
  */
-public class CCotizacion {
+public class CTransaccion {
     String deptoOrigen;
     String municipioOrigen;
     String direccionOrigen;
@@ -17,10 +17,18 @@ public class CCotizacion {
     String direccionDestino;
     Integer paquetes;
     String size;
-    //Double precio;
+    String tipoPrecio;
+    String tipoPago;
+    String datosFacturacion;
+    String total;
+    String datosTarjeta;
+    String cvv;
+    String codigoEnvio;
+    
 
    
-    public CCotizacion(String deptoOrigen, String municipioOrigen, String direccionOrigen, String deptoDestino, String municipioDestino, String direccionDestino, String size, Integer paquetes ){
+    public CTransaccion(String deptoOrigen, String municipioOrigen, String direccionOrigen, String deptoDestino, String municipioDestino, String direccionDestino, String size, Integer paquetes,
+                   String tipoPrecio, String tipoPago, String datosFacturacion, String total, String datosTarjeta, String cvv){
         
         this.deptoOrigen = deptoOrigen;
         this.municipioOrigen = municipioOrigen;
@@ -30,7 +38,12 @@ public class CCotizacion {
         this.direccionDestino = direccionDestino;
         this.paquetes = paquetes;
         this.size = size;
-        //this.precio = precio;
+        this.tipoPrecio = tipoPrecio;
+        this.tipoPago = tipoPago;
+        this.datosFacturacion = datosFacturacion;
+        this.total = total;
+        this.datosTarjeta = datosTarjeta;
+        this.cvv = cvv;        
         
     }
 
@@ -97,5 +110,64 @@ public class CCotizacion {
     public void setSize(String size) {
         this.size = size;
     }
+    
+        public String getTipoPrecio() {
+        return tipoPrecio;
+    }
+
+    public void setTipoPrecio(String tipoPrecio) {
+        this.tipoPrecio = tipoPrecio;
+    }
+
+    public String getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    public String getDatosFacturacion() {
+        return datosFacturacion;
+    }
+
+    public void setDatosFacturacion(String datosFacturacion) {
+        this.datosFacturacion = datosFacturacion;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getDatosTarjeta() {
+        return datosTarjeta;
+    }
+
+    public void setDatosTarjeta(String datosTarjeta) {
+        this.datosTarjeta = datosTarjeta;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getCodigoEnvio() {
+        return codigoEnvio;
+    }
+
+    public void setCodigoEnvio(String codigoEnvio) {
+        this.codigoEnvio = codigoEnvio;
+    }
+    
+    
+    
 }
 

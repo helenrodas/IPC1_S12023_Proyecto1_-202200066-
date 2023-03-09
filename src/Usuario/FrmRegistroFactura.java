@@ -20,6 +20,7 @@ public class FrmRegistroFactura extends javax.swing.JFrame {
         String municipio;
         String direccion;
         String nit;
+        CUsuario usuarioActual;
         
         
     public FrmRegistroFactura(Data data) {
@@ -27,8 +28,10 @@ public class FrmRegistroFactura extends javax.swing.JFrame {
         this.data = data;
         String nombre = "Helen";
         String apellido = "Rodas";
-//        String nombre = data.getUsuarioActual().getNombre();
-//        String apellido = data.getUsuarioActual().getApellido();
+        //String nombre = data.getUsuarioActual().getNombre();
+        //String apellido = data.getUsuarioActual().getApellido();
+        usuarioActual = data.getUsuarioActual();
+        //usuarioActual.setNit(nit);
         String nombreCompleto = nombre + " " + apellido;
          
         txtNombre.setEditable(false);
@@ -194,6 +197,7 @@ public class FrmRegistroFactura extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Llenar todos los datos");
         }else{
             CFactura factura = new CFactura(departamento, municipio, direccion, nit);
+            usuarioActual.setNit(nit);
             
             JOptionPane.showMessageDialog(null,"Datos agregados con exito");
         }
