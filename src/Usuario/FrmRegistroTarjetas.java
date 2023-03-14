@@ -19,8 +19,8 @@ public class FrmRegistroTarjetas extends javax.swing.JFrame {
         String dia="";
         String mes="";
         String year="";
+        CUsuario usuarioActual;
         public ArrayList<CTarjeta> listaTarjetas;
-        
         Data data;
     /**
      * Creates new form FrmRegistroTarjetas
@@ -28,7 +28,8 @@ public class FrmRegistroTarjetas extends javax.swing.JFrame {
     public FrmRegistroTarjetas(Data data) {
         initComponents();
         this.data=data;
-        listaTarjetas = data.getTarjetas();
+        listaTarjetas = data.getUsuarioActual().getListaTarjetas();
+        this.setTitle("Registro Tarjetas");
     }
 
     /**
@@ -242,10 +243,14 @@ public class FrmRegistroTarjetas extends javax.swing.JFrame {
 
         } else{
             CTarjeta tarjeta = new CTarjeta( tipo, nombre,codigo,dia,mes,year);
-     
+            
             listaTarjetas.add(tarjeta);
+            usuarioActual = data.getUsuarioActual();
+            usuarioActual.setListaTarjetas(listaTarjetas);
             JOptionPane.showMessageDialog(null,"Tarjeta Agregada con exito");
             
+  
+          
             LimpiarFormulario();
             
         }

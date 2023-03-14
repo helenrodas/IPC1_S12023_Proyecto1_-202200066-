@@ -21,6 +21,7 @@ public class FrmUbicacion extends javax.swing.JFrame {
     public ArrayList<CUbicacion> listaDepartamentos;
     public ArrayList<CUbicacion> listaMunicipios;
     public ArrayList<CRegion> listaRegiones;
+   
     
     Data data;
     /**
@@ -32,6 +33,8 @@ public class FrmUbicacion extends javax.swing.JFrame {
         listaDepartamentos = data.getDepartamentos();
         listaMunicipios = data.getMunicipios();
         listaRegiones = data.getRegiones();
+         this.setTitle("Departamentos y Municipios");
+
 
         CargarRegiones();
         //CargarDepartamentos();

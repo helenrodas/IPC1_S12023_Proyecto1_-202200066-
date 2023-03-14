@@ -40,7 +40,6 @@ public class FrmUser extends javax.swing.JFrame {
         btnDatosFactura = new javax.swing.JButton();
         btnRegistroTarjeta = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
-        btnCompra = new javax.swing.JButton();
         btnDescargarGuia = new javax.swing.JButton();
         btnEnvios = new javax.swing.JButton();
 
@@ -84,9 +83,6 @@ public class FrmUser extends javax.swing.JFrame {
             }
         });
 
-        btnCompra.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
-        btnCompra.setText("Compra");
-
         btnDescargarGuia.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
         btnDescargarGuia.setText("Descargar Factura y guia");
         btnDescargarGuia.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +93,11 @@ public class FrmUser extends javax.swing.JFrame {
 
         btnEnvios.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
         btnEnvios.setText("Ver envios solicitados");
+        btnEnvios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,9 +121,6 @@ public class FrmUser extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(btnCompra))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
@@ -148,8 +146,6 @@ public class FrmUser extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnEnvios)
                 .addGap(18, 18, 18)
-                .addComponent(btnCompra)
-                .addGap(18, 18, 18)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -168,7 +164,7 @@ public class FrmUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,20 +175,6 @@ public class FrmUser extends javax.swing.JFrame {
         CUsuario usuarioActual = data.getUsuarioActual();
         usuarioActual = null;
 
-//            data.getUsuarioActual().setNombre("");
-//            data.getUsuarioActual().setApellido("");
-//            data.getUsuarioActual().setAlias("");
-//            data.getUsuarioActual().setCorreo("");
-//            data.getUsuarioActual().setDpi("");
-//            data.getUsuarioActual().setFecha("");
-//            data.getUsuarioActual().setFoto("");
-//            data.getUsuarioActual().setGenero("");
-//            data.getUsuarioActual().setNacionalidad("");
-//            data.getUsuarioActual().setNit("");
-//            data.getUsuarioActual().setPassword("");
-//            data.getUsuarioActual().setRol("");
-//            data.getUsuarioActual().setTelefono("");
-//            
         
                 FrmInicio frmInicio = new FrmInicio(data);
                 frmInicio.setLocationRelativeTo(null);
@@ -232,7 +214,7 @@ public class FrmUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCotizarActionPerformed
 
     private void btnDescargarGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarGuiaActionPerformed
-            if(evt.getSource()== btnDescargarGuia){
+        if(evt.getSource()== btnDescargarGuia){
             FrmEtiquetaEnvio frmEtiquetaEnvio = new FrmEtiquetaEnvio(data);
             frmEtiquetaEnvio.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
             frmEtiquetaEnvio.setLocationRelativeTo(null);
@@ -241,44 +223,17 @@ public class FrmUser extends javax.swing.JFrame {
                       }
     }//GEN-LAST:event_btnDescargarGuiaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new FrmUser().setVisible(true);
-//            }
-//        });
-//    }
+    private void btnEnviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviosActionPerformed
+        FrmReportesUsuario frmReportesUsuario = new FrmReportesUsuario(data);
+        frmReportesUsuario.setDefaultCloseOperation(FrmAdmin.DISPOSE_ON_CLOSE);
+        frmReportesUsuario.setLocationRelativeTo(null);
+        frmReportesUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEnviosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCompra;
     private javax.swing.JButton btnCotizar;
     private javax.swing.JButton btnDatosFactura;
     private javax.swing.JButton btnDescargarGuia;

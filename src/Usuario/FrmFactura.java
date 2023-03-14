@@ -21,7 +21,7 @@ public class FrmFactura extends javax.swing.JFrame {
         initComponents();
         this.data = data;
         MostrarDatosFactura();
-
+        this.setTitle("Factura");
     }
 
    
@@ -239,8 +239,8 @@ public class FrmFactura extends javax.swing.JFrame {
         String numAsString = Integer.toString(num);
         String origen = ultimaTransaccion.getDeptoOrigen() + " || " + ultimaTransaccion.getMunicipioOrigen();
         String destino = ultimaTransaccion.getDeptoDestino()+ " || " + ultimaTransaccion.getMunicipioDestino();
-        //String nit = data.getUsuarioActual().getNit();
-        String nit = "12345678";
+        String nit = data.getUsuarioActual().getNit();
+       // String nit = "12345678";
         String tipoPago = ultimaTransaccion.getTipoPago();
         String size = ultimaTransaccion.getSize();
         String numeroPaquetes = ultimaTransaccion.getPaquetes().toString();

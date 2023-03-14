@@ -14,20 +14,19 @@ import javax.swing.JOptionPane;
 public class Data {
     
     private ArrayList<CUsuario> Usuarios;
-    private ArrayList<CKiosco> Kioscos;
+    private ArrayList<CKiosco> listaKioscos;
     private ArrayList<CTarifa> Tarifas;
     private ArrayList<CUbicacion> Departamentos;
     private ArrayList<CUbicacion> Municipios;
     private ArrayList<CRegion> Regiones;
     private ArrayList<CTarjeta> Tarjetas;
     private CUsuario usuarioActual;
-    private CTarjeta tarjetaIngresada;
     private CTransaccion transaccionRegistrada;
     private ArrayList<CTransaccion> listaTransacciones;
     
     public Data(){
        Usuarios=new ArrayList<>();
-       Kioscos=new ArrayList<>();
+       listaKioscos=new ArrayList<>();
        Tarifas=new ArrayList<>();
        Departamentos=new ArrayList<>();
        Municipios=new ArrayList<>();
@@ -44,12 +43,12 @@ public class Data {
         this.Usuarios = Usuarios;
     }
 
-    public ArrayList<CKiosco> getKioscos() {
-        return Kioscos;
+    public ArrayList<CKiosco> getListaKioscos() {
+        return listaKioscos;
     }
 
-    public void setKioscos(ArrayList<CKiosco> Kioscos) {
-        this.Kioscos = Kioscos;
+    public void setListaKioscos(ArrayList<CKiosco> listaKioscos) {
+        this.listaKioscos = listaKioscos;
     }
 
     public ArrayList<CTarifa> getTarifas() {
@@ -98,14 +97,6 @@ public class Data {
 
     public void setUsurioActual(CUsuario usuario) {
         this.usuarioActual = usuario;
-    }
-
-    public CTarjeta getTarjetaIngresada() {
-        return tarjetaIngresada;
-    }
-
-    public void setTarjetaIngresada(CTarjeta tarjetaIngresada) {
-        this.tarjetaIngresada = tarjetaIngresada;
     }
 
     public CTransaccion getTransaccionRegistrada() {
@@ -184,7 +175,7 @@ public class Data {
         
     //--Seccion kioscos--
     public boolean  existeKiosco( String codigo, String nombre){
-        for (CKiosco kiosco : Kioscos) {
+        for (CKiosco kiosco : listaKioscos) {
             if ( codigo.equalsIgnoreCase(kiosco.getCodigoKiosco()) && 
                  nombre.equalsIgnoreCase(kiosco.getNombreKiosco()) ){
                 return true;
@@ -193,19 +184,20 @@ public class Data {
         return false;
     }    
     public void eliminarKiosco( String codigo ) {
-         for (int i = 0; i < Kioscos.size(); i++) {
-             if(codigo.equals(Kioscos.get(i).getCodigoKiosco())){
-                 Kioscos.remove(i);
+         for (int i = 0; i < listaKioscos.size(); i++) {
+             if(codigo.equals(listaKioscos.get(i).getCodigoKiosco())){
+                 listaKioscos.remove(i);
              }
          }
      }
 
     public void actualizarKiosco(String codigoKiosco, String nombreKiosco, String nombreRegion ){
-         for (int i = 0; i < Kioscos.size(); i++) {
-             if(codigoKiosco.equals(Kioscos.get(i).getCodigoKiosco())){
+        
+         for (int i = 0; i < listaKioscos.size(); i++) {
+             if(codigoKiosco.equals(listaKioscos.get(i).getCodigoKiosco())){
                  //Kioscos.get(i).setCodigoKiosco(txtCodigoKiosco.getText());
-                 Kioscos.get(i).setNombreKiosco(nombreKiosco);
-                 Kioscos.get(i).setRegionKiosco(nombreRegion);         
+                 listaKioscos.get(i).setNombreKiosco(nombreKiosco);
+                 listaKioscos.get(i).setRegionKiosco(nombreRegion);         
             }
          }
      }

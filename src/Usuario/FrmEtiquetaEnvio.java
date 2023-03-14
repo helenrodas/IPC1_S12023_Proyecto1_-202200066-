@@ -23,6 +23,8 @@ public class FrmEtiquetaEnvio extends javax.swing.JFrame {
         initComponents();
         this.data = data;
         CargarDatosDeCotizacion();
+        this.setTitle("Guia de Envio");
+
         
  
     }

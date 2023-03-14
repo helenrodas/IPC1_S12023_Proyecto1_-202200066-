@@ -23,6 +23,7 @@ public class FrmRegiones extends javax.swing.JFrame {
     public FrmRegiones(Data data) {
         initComponents();
         this.data=data;
+        this.setTitle("Regiones y Precios");
         listaRegiones = data.getTarifas();
 
         CargarRegiones();
@@ -80,7 +81,6 @@ public class FrmRegiones extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRegiones = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
 
@@ -192,8 +192,6 @@ public class FrmRegiones extends javax.swing.JFrame {
         jTableRegiones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTableRegiones);
 
-        btnAgregar.setText("Agregar");
-
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,20 +216,16 @@ public class FrmRegiones extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanelRegiones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(btnAgregar)
-                                .addGap(126, 126, 126)
-                                .addComponent(btnEliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(427, 427, 427)
-                                .addComponent(btnActualizar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(126, 126, 126)
+                        .addComponent(btnEliminar)
+                        .addGap(104, 104, 104)
+                        .addComponent(btnActualizar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +236,6 @@ public class FrmRegiones extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
                     .addComponent(btnEliminar)
                     .addComponent(btnActualizar))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -362,7 +355,6 @@ public class FrmRegiones extends javax.swing.JFrame {
    // }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;

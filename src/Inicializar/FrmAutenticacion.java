@@ -10,6 +10,7 @@ import Data.*;
 //import Data.CUsuario;
 //import Data.CKiosco;
 import Administrador.FrmAdmin;
+import Kiosco.FrmKioscoMenu;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 //import javax.swing.JFrame;
@@ -18,22 +19,13 @@ import javax.swing.JOptionPane;
  * @author lenovo
  */
 public class FrmAutenticacion extends javax.swing.JFrame {
-//    private ArrayList<CUsuario> Usuarios = null;
-//    public ArrayList<CKiosco> Kioscos = new ArrayList();
-//    public ArrayList<CRegiones> Regiones = new ArrayList();
-    
-    //public ArrayList<CKiosco> Kioscos = new ArrayList();
-     // FrmRegistroUsuario ru;
+
     Data data;
     
     public FrmAutenticacion(Data data) {
-        //Usuarios = Users;
-       // Kioscos=kioscos;
         initComponents();
-        // initRegiones();
         this.data=data;
         this.setTitle("Autenticacion");
-        //String correo = txtCorreo.getText();
     }
     
 
@@ -178,14 +170,16 @@ public class FrmAutenticacion extends javax.swing.JFrame {
             
             String rol = usuario.getRol();
             
-           JOptionPane.showMessageDialog( this,  "Rol encontreado: ".concat(rol));
 
             switch (rol) {
                 case "Kiosco":
-                    JOptionPane.showMessageDialog( this,  "Bienvenido a kiosco!");
+                    FrmKioscoMenu frmKioscoMenu = new FrmKioscoMenu(data);
+                    frmKioscoMenu.setDefaultCloseOperation(FrmKioscoMenu.DISPOSE_ON_CLOSE);
+                    frmKioscoMenu.setLocationRelativeTo(null);
+                    frmKioscoMenu.setVisible(true);
+                    this.setVisible(false);
                     break;
                 case "Usuario Individual":
-                   // JOptionPane.showMessageDialog( this,  "Bienvenido a Usuario Individual!");
                     FrmUser frmUser = new FrmUser(data);
                     frmUser.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
                     frmUser.setLocationRelativeTo(null);
@@ -206,7 +200,6 @@ public class FrmAutenticacion extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
-
 
     
     @Override

@@ -27,7 +27,9 @@ public class FrmKiosco extends javax.swing.JFrame {
     public FrmKiosco(Data data) {
         initComponents();   
         this.data=data;
-        listaKioscos = data.getKioscos();
+        listaKioscos = data.getListaKioscos();
+        this.setTitle("Manejo Kioscos");
+
         
         jTableKioscos.addMouseListener(new MouseAdapter(){
         
@@ -84,9 +86,6 @@ public class FrmKiosco extends javax.swing.JFrame {
 
         jTableKioscos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -253,17 +252,20 @@ public class FrmKiosco extends javax.swing.JFrame {
         }
         
         data.eliminarKiosco(codigoKiosco);
+        txtCodigoKiosco.setEditable(true);
 
         limpiarCampos();
         mostrarDatos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        
         String codigoKiosco = txtCodigoKiosco.getText().trim();
         String nombreKiosco = txtNombreKiosco.getText().trim();
         String nombreRegion = comboBoxRegionKiosco.getSelectedItem().toString();
-
+        
         data.actualizarKiosco(codigoKiosco, nombreKiosco, nombreRegion);
+        txtCodigoKiosco.setEditable(true);
         
         limpiarCampos();
         mostrarDatos();

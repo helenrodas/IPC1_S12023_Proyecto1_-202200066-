@@ -4,6 +4,8 @@
  */
 package Data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author lenovo
@@ -13,6 +15,7 @@ public class CUsuario  implements Cloneable  {
     String nombre;
     String apellido;
     String password;
+    String pwdVerificado;
     String dpi;
     String telefono;
     String fecha;
@@ -22,20 +25,25 @@ public class CUsuario  implements Cloneable  {
     String alias;
     String foto;
     String nit;
+    private ArrayList<CTarjeta> ListaTarjetas;
+    String kiosco;
     
 
-    public CUsuario(String correo, String nombre, String apellido, String password, String dpi, String telefono, String fecha, 
-            String genero, String rol, String nacionalidad ) {
+    public CUsuario(String correo, String nombre, String apellido, String password, String pwdVerificado ,String dpi, String telefono, String fecha, 
+            String genero, String rol, String nacionalidad, String kiosco ) {
         this.correo = correo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.password  = password;
+        this.pwdVerificado = pwdVerificado;
         this.dpi = dpi;
         this.telefono=telefono;
         this.fecha=fecha;
         this.genero=genero;
         this.rol=rol;
         this.nacionalidad=nacionalidad;
+        this.ListaTarjetas = new ArrayList<>();
+        this.kiosco = kiosco;
        
     }
 
@@ -69,6 +77,14 @@ public class CUsuario  implements Cloneable  {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPwdVerificado() {
+        return pwdVerificado;
+    }
+
+    public void setPwdVerificado(String pwdVerificado) {
+        this.pwdVerificado = pwdVerificado;
     }
 
     public String getDpi() {
@@ -142,6 +158,24 @@ public class CUsuario  implements Cloneable  {
     public void setNit(String nit) {
         this.nit = nit;
     }
+
+    public ArrayList<CTarjeta> getListaTarjetas() {
+        return ListaTarjetas;
+    }
+
+    public void setListaTarjetas(ArrayList<CTarjeta> ListaTarjetas) {
+        this.ListaTarjetas = ListaTarjetas;
+    }
+
+    public String getKiosco() {
+        return kiosco;
+    }
+
+    public void setKiosco(String kiosco) {
+        this.kiosco = kiosco;
+    }
+
+
     
     @Override
     public Object clone() throws CloneNotSupportedException{  
