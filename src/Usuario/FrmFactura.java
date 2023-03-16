@@ -244,7 +244,7 @@ public class FrmFactura extends javax.swing.JFrame {
         String tipoPago = ultimaTransaccion.getTipoPago();
         String size = ultimaTransaccion.getSize();
         String numeroPaquetes = ultimaTransaccion.getPaquetes().toString();
-        String total = ultimaTransaccion.getTotal();
+        String total = Double.toString(ultimaTransaccion.getTotal());
         String codigoEnvio = ultimaTransaccion.getCodigoEnvio();
 
         

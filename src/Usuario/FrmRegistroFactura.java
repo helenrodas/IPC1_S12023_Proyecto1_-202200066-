@@ -199,6 +199,7 @@ public class FrmRegistroFactura extends javax.swing.JFrame {
             usuarioActual.setNit(nit);
             
             JOptionPane.showMessageDialog(null,"Datos agregados con exito");
+            LimpiarCampos();
         }
         
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -239,6 +240,13 @@ public class FrmRegistroFactura extends javax.swing.JFrame {
         for(CUbicacion municipios : listaMunicipios){
             jComboBoxMunicipios.addItem(municipios.getNombre());
         }
+    }
+    
+    private void LimpiarCampos(){
+        txtDireccion.setText("");
+        jComboBoxDeptos.setSelectedIndex(0);
+        jComboBoxMunicipios.setSelectedIndex(0);
+        txtNit.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

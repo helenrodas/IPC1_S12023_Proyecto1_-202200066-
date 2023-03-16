@@ -20,7 +20,7 @@ public class CTransaccion {
     String tipoPrecio;
     String tipoPago;
     String datosFacturacion;
-    String total;
+    Double total;
     String datosTarjeta;
     String cvv;
     String codigoEnvio;
@@ -28,7 +28,7 @@ public class CTransaccion {
 
    
     public CTransaccion(String deptoOrigen, String municipioOrigen, String direccionOrigen, String deptoDestino, String municipioDestino, String direccionDestino, String size, Integer paquetes,
-                   String tipoPrecio, String tipoPago, String datosFacturacion, String total, String datosTarjeta, String cvv){
+                   String tipoPrecio, String tipoPago, String datosFacturacion, Double total, String datosTarjeta, String cvv){
         
         this.deptoOrigen = deptoOrigen;
         this.municipioOrigen = municipioOrigen;
@@ -135,13 +135,15 @@ public class CTransaccion {
         this.datosFacturacion = datosFacturacion;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
+
+
 
     public String getDatosTarjeta() {
         return datosTarjeta;

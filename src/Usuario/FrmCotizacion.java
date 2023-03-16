@@ -12,6 +12,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
     private Data data;
     Double totalEstandar = 0.0;
     Double totalEspecial = 0.0;
+    Double total = 0.0;
     String tipoPrecio = "";
     String tipoPago="";
     CUsuario usuarioActual;
@@ -233,7 +234,7 @@ public class FrmCotizacion extends javax.swing.JFrame {
             jPanelKioscoOrigenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelKioscoOrigenLayout.createSequentialGroup()
                 .addComponent(txtKioscoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         jPanelKioscoOrigenLayout.setVerticalGroup(
             jPanelKioscoOrigenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,7 +621,8 @@ public class FrmCotizacion extends javax.swing.JFrame {
         String tipoPrecio = grpPrecio.getSelection().getActionCommand();
         String tipoPago = grpPago.getSelection().getActionCommand();
         String datosFactura = jComboBoxDatosFactura.getSelectedItem().toString();
-        String total = txtTotalAPagar.getText().trim();
+        String totalAsString = txtTotalAPagar.getText().trim();
+        double total = Double.parseDouble(totalAsString);
         String datosTarjeta = jComboBoxTarjetas.getSelectedItem().toString();
         String cvv = txtCvv.getText().trim();
         
@@ -913,30 +915,26 @@ public class FrmCotizacion extends javax.swing.JFrame {
         jComboBoxDatosFactura.addItem("---");
         jComboBoxDatosFactura.addItem(datosFactura);
       }
-      
+      // txtTotalEstandar.setText(String.format("%.2f", totalEstandar));
       private void CargarTotalAPagar(){
           if(jRadioButtonPrecioEstandar.isSelected() && jRadioButtonCobroContraEntrega.isSelected()){
-            Double total = (totalEstandar + 5);
-            String totalAsString = total.toString();
-            txtTotalAPagar.setText(totalAsString);
+            total = (totalEstandar + 5);
+            txtTotalAPagar.setText(String.format("%.2f", total));
             jPanelDatosTarjeta.setVisible(false);
             
         }else if(jRadioButtonPrecioEspecial.isSelected() && jRadioButtonCobroContraEntrega.isSelected()){
-            Double total = (totalEspecial + 5);
-            String totalAsString = total.toString();
-            txtTotalAPagar.setText(totalAsString);
+            total = (totalEspecial + 5);
+            txtTotalAPagar.setText(String.format("%.2f", total));
             jPanelDatosTarjeta.setVisible(false);
             
         }else if(jRadioButtonPrecioEstandar.isSelected() && jRadioButtonCobroConTarjeta.isSelected()){
-            Double total = totalEstandar;
-            String totalAsString = total.toString();
-            txtTotalAPagar.setText(totalAsString);
+            total = totalEstandar;
+            txtTotalAPagar.setText(String.format("%.2f", total));
             jPanelDatosTarjeta.setVisible(true);
             
         }else if(jRadioButtonPrecioEspecial.isSelected() && jRadioButtonCobroConTarjeta.isSelected()){
-            Double total = totalEspecial;
-            String totalAsString = total.toString();
-            txtTotalAPagar.setText(totalAsString);
+            total = totalEspecial;
+            txtTotalAPagar.setText(String.format("%.2f", total));
             jPanelDatosTarjeta.setVisible(true);
         }
       }

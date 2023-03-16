@@ -40,7 +40,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnManejoKioscos = new javax.swing.JButton();
         btnRegiones = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         btnDptMun = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
 
@@ -67,8 +67,13 @@ public class FrmAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
-        jButton3.setText("Reportes");
+        btnReportes.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
+        btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
 
         btnDptMun.setFont(new java.awt.Font("Century Schoolbook", 0, 14)); // NOI18N
         btnDptMun.setText("Manejo Departamentos y Municipios");
@@ -107,7 +112,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                         .addComponent(btnManejoKioscos))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(jButton3))
+                        .addComponent(btnReportes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(btnRegiones))
@@ -128,7 +133,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(btnManejoKioscos)
                 .addGap(27, 27, 27)
-                .addComponent(jButton3)
+                .addComponent(btnReportes)
                 .addGap(28, 28, 28)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap())
@@ -197,6 +202,17 @@ public class FrmAdmin extends javax.swing.JFrame {
                       }
     }//GEN-LAST:event_btnDptMunActionPerformed
 
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        if(evt.getSource()== btnReportes){
+                        
+                        FrmReportesAdmin frmReportesAdmin = new FrmReportesAdmin(data);
+                        frmReportesAdmin.setDefaultCloseOperation(FrmUser.DISPOSE_ON_CLOSE);
+                        frmReportesAdmin.setLocationRelativeTo(null);
+                        frmReportesAdmin.setVisible(true);
+                        this.setVisible(false);
+                    }
+    }//GEN-LAST:event_btnReportesActionPerformed
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -237,7 +253,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnDptMun;
     private javax.swing.JButton btnManejoKioscos;
     private javax.swing.JButton btnRegiones;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

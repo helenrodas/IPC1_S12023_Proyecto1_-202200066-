@@ -105,7 +105,7 @@ public class FrmReportesUsuario extends javax.swing.JFrame {
             Datos[i][0]=listaTransacciones.get(i).getCodigoEnvio();
             Datos[i][1]=listaTransacciones.get(i).getTipoPrecio();
             Datos[i][2]=listaTransacciones.get(i).getDeptoDestino();
-            Datos[i][3]=listaTransacciones.get(i).getTotal();
+            Datos[i][3] = Double.toString(listaTransacciones.get(i).getTotal());
             Datos[i][4]=listaTransacciones.get(i).getTipoPago();
 
         }

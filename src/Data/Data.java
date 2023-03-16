@@ -273,6 +273,58 @@ public class Data {
         InitTarifas();
        InitUbicaciones();
     }
+    
+    public boolean  existeRegion( String codigo, String nombre){
+        for (CRegion region : Regiones ) {
+            if ( codigo.equalsIgnoreCase(region.getCodigo())){
+                return true;
+            }
+        }
+        return false;
+    } 
+    
+    public void eliminarRegion( String codigo ) {
+         for (int i = 0; i < Regiones.size(); i++) {
+             if(codigo.equalsIgnoreCase(Regiones.get(i).getCodigo())){
+                 Regiones.remove(i);
+             }
+         }
+     }
+    
+    public boolean  existeDepartamento( String codigo, String nombre){
+        for (CUbicacion departamento : Departamentos ) {
+            if ( codigo.equalsIgnoreCase(departamento.getCodigo())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void eliminarDepartamento( String codigo ) {
+         for (int i = 0; i < Departamentos.size(); i++) {
+             if(codigo.equalsIgnoreCase(Departamentos.get(i).getCodigo())){
+                 Departamentos.remove(i);
+             }
+         }
+    }
+    
+    public boolean  existeMunicipio( String codigo, String nombre){
+        for (CUbicacion municipio : Municipios ) {
+            if ( codigo.equalsIgnoreCase(municipio.getCodigo())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void eliminarMunicipio( String codigo ) {
+         for (int i = 0; i < Municipios.size(); i++) {
+             if(codigo.equalsIgnoreCase(Municipios.get(i).getCodigo())){
+                 Municipios.remove(i);
+             }
+         }
+    }
+    
       
     //--seccion regiones
     public void InitRegiones(){
@@ -341,6 +393,15 @@ public class Data {
         for (CRegion region : Regiones ) {
             if ( codigo.equals(region.getCodigo()) ){
                 return region;
+            }
+        }
+        return null;
+    }
+    
+    public CUbicacion GetDepartamento(String codigo){
+        for (CUbicacion departamento : Departamentos ) {
+            if ( codigo.equals(departamento.getCodigo()) ){
+                return departamento;
             }
         }
         return null;

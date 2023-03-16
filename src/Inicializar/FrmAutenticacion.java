@@ -131,8 +131,8 @@ public class FrmAutenticacion extends javax.swing.JFrame {
         String correo = txtCorreo.getText();
         char [] pwd = txtPwd.getPassword();
         String pwdAsString = String.valueOf(pwd);
-        String correoAdmin="123";
-        String pwdAdmin = "123";
+        String correoAdmin="ipc1_202200066@ipc1delivery.com";
+        String pwdAdmin = "202200066";
         CUsuario usuarioActual;
 
         if( correo.isBlank() || pwdAsString.isBlank() ){
